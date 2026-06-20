@@ -1,0 +1,5 @@
+// shape_rules.npk — Boundary proofs for tensors
+
+// Enforces valid sequence lengths and hidden dimensions for MLA and Mamba.
+pub Rules<int64>:valid_seq_len = { $ > 0i64, $ <= 131072i64 }; // Up to 128K context
+pub Rules<int64>:valid_hidden_dim = { $ > 0i64, $ <= 32768i64 }; // Head * Dim limits
