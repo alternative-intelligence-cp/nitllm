@@ -1,0 +1,11 @@
+// interleave.npk — The 1:7 Routing & Interleaving Implementation
+
+pub func:route_layer = void(int64:layer_id) {
+    // Implements 1 attention layer for every 7 Mamba layers
+    if (layer_id % 8i64 == 0i64) {
+        // Route to MLA
+    } else {
+        // Route to Mamba
+    }
+    pass(void);
+};
