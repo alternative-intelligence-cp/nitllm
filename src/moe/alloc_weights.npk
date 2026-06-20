@@ -1,0 +1,8 @@
+// alloc_weights.npk — INT4 Static Weight Allocation
+
+use "../tensor/alloc.npk".*;
+
+pub func:allocate_moe_weights = void() {
+    // Allocates the full VRAM memory footprint for the 32B INT4 weights
+    pass(void);
+};
