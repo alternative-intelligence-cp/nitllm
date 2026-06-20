@@ -1,0 +1,6 @@
+// run_throughput.npk — Throughput Benchmarking
+
+pub func:benchmark = void() {
+    // Establishes the performance baselines (Tokens/sec)
+    pass(void);
+};
