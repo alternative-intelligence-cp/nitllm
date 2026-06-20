@@ -1,0 +1,6 @@
+// pipeline.npk — Host-Side Pipelining
+
+pub func:host_pipeline = void() {
+    // Staging data pipelining on the Host CPU via Channels
+    pass(void);
+};
