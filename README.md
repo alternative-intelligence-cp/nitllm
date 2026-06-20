@@ -1,2 +1,3 @@
 # nitllm
-Advanced LLM in Nitpick
+
+A high performance LLM in native nitpick.

@@ -1,0 +1,15 @@
+// build.abc — NITLLM Build Manifest
+
+project "nitllm"
+version "0.0.0"
+
+// Enforce strictest memory and syntax checking
+compiler_flags "-O3 --verify-contracts --smt-opt"
+
+// Link standard dependencies
+dependency "nitpick-libc" version "1.2.x"
+
+// FFI links for CUDA/PTX integrations
+ffi_link "cuda" "cudart"
+
+export_bin "nitllm" from "src/main.npk"
