@@ -1,0 +1,9 @@
+// generate.npk — Full E2E Inference Generation Loop
+
+use "inference.npk".*;
+
+pub func:generate = void() {
+    // Binds the entire system into the final generation loop
+    run_generation();
+    pass(void);
+};
