@@ -1,0 +1,21 @@
+// dense.npk — Dense tensor types for GPU compute
+
+use "quant_types.npk".*;
+
+// A standard float32 tensor for activations and KV cache.
+// Expressly avoids Handle<T> to preserve contiguous memory without overhead.
+pub struct:TensorF32 {
+    wild flt32->:raw_data;
+    int64:capacity;  // Note: element count, not bytes
+    int64:shape_d1;
+    int64:shape_d2;
+    int64:shape_d3;
+};
+
+// A standard float16 tensor for intermediate computations
+pub struct:TensorF16 {
+    wild flt16->:raw_data;
+    int64:capacity;
+    int64:shape_d1;
+    int64:shape_d2;
+};
