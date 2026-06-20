@@ -1,0 +1,10 @@
+// test_math.npk — Math Integration Tests
+
+use "../../src/tensor/matmul.npk".*;
+use "../../src/tensor/softmax.npk".*;
+use "../../src/tensor/rmsnorm.npk".*;
+
+func:test_math_operations = void() {
+    // Integration test logic for tensor math
+    pass(void);
+};
