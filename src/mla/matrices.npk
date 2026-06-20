@@ -1,0 +1,11 @@
+// matrices.npk — MLA Up/Down Projections
+
+use "projection.npk".*;
+
+pub func:mla_down_proj = flt32(wild flt32->:input) {
+    pass(0.0f32);
+};
+
+pub func:mla_up_proj = flt32(wild flt32->:latent) {
+    pass(0.0f32);
+};
