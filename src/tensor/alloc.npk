@@ -1,0 +1,11 @@
+// alloc.npk — Mamba block and INT4 struct initialization
+
+use "quant_types.npk".*;
+use "rules.npk".*;
+
+// Using explicit Result<NIL> shorthand: NIL(...)
+// Takes a strictly verified stride integer.
+pub func:allocate_mamba_block = NIL(limit<valid_stride> int32:stride) {
+    // Allocation implementation deferred to v0.0.3
+    pass(NIL);
+};

@@ -1,0 +1,24 @@
+// quant_types.npk — INT4 specific weight layouts
+
+use "../util/error_codes.npk".*;
+
+// INT4 values are packed 2-per-byte. 
+// We represent the raw storage block as a byte array (int8), 
+// which will be unpacked strictly via PTX kernels, not CPU code.
+pub struct:PackedInt4Block {
+    // 128 INT4 values = 64 bytes (cache line aligned)
+    array<int8, 64>:data; 
+    // Shared FP16 scale for the 128-element block
+    flt16:scale;
+    // Zero-point offset
+    int4:zero_point; 
+    // Padding to align struct to 128 bytes if necessary
+};
+
+// A raw tensor representation pointing to VRAM.
+// Note: We use wild pointers, NOT Handle<T>, to prevent massive metadata OOM.
+pub struct:TensorINT4 {
+    wild int8->:raw_data;
+    int64:num_blocks;
+    int64:stride;
+};
