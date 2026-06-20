@@ -1,0 +1,6 @@
+// router.npk — MoE Router Network
+
+pub func:route_tokens = void() {
+    // Dynamic router for selecting experts
+    pass(void);
+};
