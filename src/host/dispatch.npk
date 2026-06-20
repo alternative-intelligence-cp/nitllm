@@ -1,0 +1,6 @@
+// dispatch.npk — Host-Side atomic<T> Synchronization
+
+pub func:host_dispatch = void() {
+    // atomic<T> synchronization for CPU orchestrator threads
+    pass(void);
+};
