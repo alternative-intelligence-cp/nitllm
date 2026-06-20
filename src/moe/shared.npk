@@ -1,0 +1,6 @@
+// shared.npk — Shared Expert Pathways
+
+pub func:shared_expert_forward = void() {
+    // Shared expert applied to all tokens
+    pass(void);
+};
