@@ -1,0 +1,6 @@
+// heads.npk — Independent Output Heads
+
+pub func:mtp_heads = void() {
+    // Separate output heads for predicting multiple future tokens
+    pass(void);
+};
