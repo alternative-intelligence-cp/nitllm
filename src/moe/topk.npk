@@ -1,0 +1,6 @@
+// topk.npk — Top-K Expert Selection
+
+pub func:select_top_k = void() {
+    // Top-K expert selection logic
+    pass(void);
+};
