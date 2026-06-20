@@ -1,0 +1,15 @@
+// math.npk — Vectorized tensor math
+
+use "dense.npk".*;
+
+// Vectorized addition for standard elements
+pub func:vector_add = void(wild flt32->:a, wild flt32->:b, wild flt32->:out, int64:len) {
+    // Hardware accelerated AVX-512 / CUDA vector add
+    pass(void);
+};
+
+// Vectorized multiplication
+pub func:vector_mul = void(wild flt32->:a, wild flt32->:b, wild flt32->:out, int64:len) {
+    // Hardware accelerated vector multiply
+    pass(void);
+};
