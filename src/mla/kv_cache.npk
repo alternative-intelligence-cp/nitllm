@@ -1,0 +1,10 @@
+// kv_cache.npk — Persistent KV Ring Buffer
+
+use "../tensor/alloc_kv.npk".*;
+
+pub func:init_kv_cache = wild flt32->(int64:max_tokens, int64:kv_dim) {
+    int64:total_elements = max_tokens * kv_dim;
+    // Returns the raw buffer bypassing GC
+    wild flt32->:cache = allocate_mla_cache(total_elements)?!;
+    pass(cache);
+};
