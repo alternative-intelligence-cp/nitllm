@@ -1,0 +1,9 @@
+// projection.npk — Latent Space Projection
+
+use "../tensor/dense.npk".*;
+use "../tensor/matmul.npk".*;
+
+pub func:project_latent_space = flt32(wild flt32->:input, wild flt32->:weight, int64:dim) {
+    // Latent space projection logic
+    pass(0.0f32);
+};
