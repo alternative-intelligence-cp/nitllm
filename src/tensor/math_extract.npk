@@ -1,0 +1,14 @@
+// math_extract.npk — Strict unwrapping
+
+use "matmul.npk".*;
+
+pub func:safe_attention = flt32(wild flt32->:q, wild flt32->:k, int64:dim) {
+    Result<flt32>:attention_score = compute_attention_tile(q, k, dim);
+    
+    // Extraction mandates Unwrapping operators. 
+    // Since a mathematical failure here corrupts the token, we MUST emphatically unwrap.
+    // Using '? 0.0f32' would illegally heal the corruption with a silent zero.
+    flt32:critical_score = attention_score?!; 
+    
+    pass(critical_score);
+};
