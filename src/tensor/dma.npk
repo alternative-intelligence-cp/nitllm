@@ -1,0 +1,33 @@
+// dma.npk — DMA Streaming for Weights
+
+use "../util/error_codes.npk".*;
+use "../ffi/cuda.npk".*;
+use "../ffi/mmap.npk".*;
+use "quant_types.npk".*;
+
+pub func:stream_weights_to_vram = TensorINT4(int64:fd, int64:size_bytes, wild int8->:vram_dest) {
+    // 1. Map to host RAM
+    wild int8->:host_ptr = map_weights(fd, size_bytes);
+    
+    // 2. Pin the host memory using '#' to prevent paging during DMA
+    #host_ptr;
+    
+    // 3. Asynchronous DMA transfer to VRAM destination
+    int32:err = cuMemcpyAsync(vram_dest, host_ptr, size_bytes, CUDA_MEMCPY_H2D, 0i64);
+    if (err != 0i32) {
+        fail(ERR_CUDA_DMA_FAILED => tbb8);
+    }
+    
+    // 4. Synchronize the stream to ensure transfer completion
+    int32:sync_err = cuStreamSynchronize(0i64);
+    if (sync_err != 0i32) {
+        fail(ERR_CUDA_DMA_FAILED => tbb8);
+    }
+    
+    // Calculate blocks (each block is 64 bytes)
+    int64:blocks = size_bytes / 64i64;
+    
+    // Return the tensor construct
+    TensorINT4:tensor = { raw_data = vram_dest, num_blocks = blocks, stride = 1i64 };
+    pass(tensor);
+};

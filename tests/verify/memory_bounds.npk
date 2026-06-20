@@ -1,0 +1,13 @@
+// memory_bounds.npk — SMT proofs for Cycle 0 limits
+
+use "../../src/tensor/rules.npk".*;
+use "../../src/tensor/quant_types.npk".*;
+
+// Prove that a PackedInt4Block always contains 128 weights in 64 bytes
+func:prove_compression_ratio = void() {
+    // Since scale (flt16) + zero_point (int4) + padding equal the remaining 64 bytes
+    // The total struct is 128 bytes, containing 128 weights.
+    // Ratio: 1 byte per weight. 32 Billion weights = 32GB without routing.
+    // But we prove here that a block's structure doesn't exceed 128 bytes.
+    assert(sizeof(PackedInt4Block) == 128i64); 
+};

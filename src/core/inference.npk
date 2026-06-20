@@ -1,0 +1,20 @@
+// inference.npk — Generation Loop Memory Boundary
+
+use "../util/error_codes.npk".*;
+use "../tensor/alloc_kv.npk".*;
+
+// The generation orchestrator creates the KV cache and manages its lifetime.
+pub func:run_generation = int32() {
+    // Allocate the KV Cache array (wild flt32-> pointer)
+    // Capacity is element count (e.g., 100 million elements)
+    wild flt32->:kv_cache = allocate_mla_cache(100000000i64)?!;
+    
+    // CRITICAL: defer cleanup is placed in the topmost scope of generation.
+    // This guarantees the cache remains alive for the entire forward pass loop,
+    // preventing the UAF described in Audit 1.1.
+    defer nitpick.free(kv_cache);
+    
+    // ... generation loop logic goes here ...
+    
+    pass(0i32);
+};
