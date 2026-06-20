@@ -1,0 +1,6 @@
+// sharding.npk — Tensor Sharding for Mamba Layers
+
+pub func:shard_sequence = void() {
+    // Sharding sequences across SMs to support 128k+ contexts
+    pass(void);
+};
