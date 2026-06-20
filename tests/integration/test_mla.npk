@@ -1,0 +1,8 @@
+// test_mla.npk — End-to-End MLA Forward Pass
+
+use "../../src/mla/flash_attention.npk".*;
+
+func:test_mla_e2e = void() {
+    // Integration test logic for the entire MLA forward pass
+    pass(void);
+};
