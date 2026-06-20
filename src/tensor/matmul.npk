@@ -1,0 +1,11 @@
+// matmul.npk — Hardware-accelerated MatMul
+
+use "../util/error_codes.npk".*;
+use "dense.npk".*;
+
+// Matrix multiplication inherently returns a Result type.
+// We use hardware-accelerated flt32 for Tensor Core utilization.
+pub func:compute_attention_tile = Result<flt32>(wild flt32->:q_tile, wild flt32->:k_tile, int64:dim) {
+    // Simulated hardware GEMM dispatch
+    pass(0.0f32); // implementation deferred to specialized PTX
+};
