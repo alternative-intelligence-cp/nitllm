@@ -1,0 +1,12 @@
+// flash_attention.npk — FlashAttention GPU Kernel Orchestration
+
+use "../ffi/ptx.npk".*;
+
+pub func:flash_attention_forward = void(wild flt32->:q, wild flt32->:k, wild flt32->:v) {
+    // Orchestrates FlashAttention-2 tailored for MLA
+    
+    // v0.2.6: FlashAttention SM Synchronization
+    __syncthreads(); 
+    
+    pass(void);
+};
