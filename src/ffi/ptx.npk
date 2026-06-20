@@ -1,0 +1,7 @@
+// ptx.npk — Direct PTX/CUDA synchronization FFI
+
+extern "PTX" {
+    // Binds directly to the PTX bar.sync instruction
+    func:__syncthreads = void();
+    func:__syncwarp = void();
+}
