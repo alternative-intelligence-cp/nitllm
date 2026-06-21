@@ -1,6 +1,6 @@
 // heads.npk — Independent Output Heads
 
-pub func:mtp_heads = void() {
+pub func:mtp_heads = NIL() {
     // Separate output heads for predicting multiple future tokens
-    pass(void);
+    pass(NIL);
 };

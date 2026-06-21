@@ -2,8 +2,7 @@
 
 use "../ffi/ptx.npk".*;
 
-pub func:s4_forward = void() {
+pub func:s4_forward = NIL() {
     // S4 specific CUDA kernels for fast sequence traversal
-    __syncthreads();
-    pass(void);
+    pass(NIL);
 };

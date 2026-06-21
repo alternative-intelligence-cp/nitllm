@@ -2,8 +2,8 @@
 
 use "inference.npk".*;
 
-pub func:generate = void() {
+pub func:generate = NIL() {
     // Binds the entire system into the final generation loop
-    run_generation();
-    pass(void);
+    _?run_generation();
+    pass(NIL);
 };

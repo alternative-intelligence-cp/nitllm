@@ -2,6 +2,11 @@
 
 use "util/error_codes.npk".*;
 
+pub func:failsafe = int32(tbb32:err) {  
+    stderr.write(`FATAL NITLLM ERROR: &{err}\n`);  
+    exit(err => int32);  
+};  
+
 pub func:main = int32() {
     // Setup minimal entry point returning success
     pass(0i32);

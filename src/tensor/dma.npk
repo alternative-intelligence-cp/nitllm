@@ -10,10 +10,12 @@ pub func:stream_weights_to_vram = TensorINT4(int64:fd, int64:size_bytes, wild in
     wild int8->:host_ptr = map_weights(fd, size_bytes);
     
     // 2. Pin the host memory using '#' to prevent paging during DMA
-    #host_ptr;
+    int64:mlock_err = sys(MLOCK, host_ptr => int64, size_bytes) ? -1i64;  
+    if (mlock_err != 0i64) { fail(ERR_CUDA_DMA_FAILED => tbb32); }  
+    defer drop sys(MUNLOCK, host_ptr => int64, size_bytes);
     
     // 3. Asynchronous DMA transfer to VRAM destination
-    int32:err = cuMemcpyAsync(vram_dest, host_ptr, size_bytes, CUDA_MEMCPY_H2D, 0i64);
+    int32:err = cuMemcpyAsync(vram_dest => void*, host_ptr => void*, size_bytes => uint64, CUDA_MEMCPY_H2D, 0u64);
     if (err != 0i32) {
         fail(ERR_CUDA_DMA_FAILED => tbb8);
     }
@@ -28,6 +30,6 @@ pub func:stream_weights_to_vram = TensorINT4(int64:fd, int64:size_bytes, wild in
     int64:blocks = size_bytes / 64i64;
     
     // Return the tensor construct
-    TensorINT4:tensor = { raw_data = vram_dest, num_blocks = blocks, stride = 1i64 };
+    TensorINT4:tensor = { raw_data: vram_dest, num_blocks: blocks, stride: 1i64 };
     pass(tensor);
 };

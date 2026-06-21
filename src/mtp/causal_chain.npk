@@ -1,6 +1,6 @@
 // causal_chain.npk — MTP Causal Chain
 
-pub func:mtp_causal_chain = void() {
+pub func:mtp_causal_chain = NIL() {
     // Core causal chain logic for MTP
-    pass(void);
+    pass(NIL);
 };

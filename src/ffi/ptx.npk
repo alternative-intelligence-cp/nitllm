@@ -1,7 +1,6 @@
 // ptx.npk — Direct PTX/CUDA synchronization FFI
 
-extern "PTX" {
-    // Binds directly to the PTX bar.sync instruction
-    func:__syncthreads = void();
-    func:__syncwarp = void();
-}
+pub func:sync_threads_native = NIL() {
+    asm!!!<NIL>("nvptx64", "bar.sync 0;", "");
+    pass(NIL);
+};

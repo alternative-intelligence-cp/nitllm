@@ -2,7 +2,7 @@
 
 use "shape_rules.npk".*;
 
-pub func:fused_softmax_f32 = void(wild flt32->:data, limit<valid_seq_len> int64:length) {
+pub func:fused_softmax_f32 = NIL(wild flt32->:data, limit<valid_seq_len> int64:length) {
     // Fused softmax avoiding garbage collection during exponentiation sum.
-    pass(void);
+    pass(NIL);
 };

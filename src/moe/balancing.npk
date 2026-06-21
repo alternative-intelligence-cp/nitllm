@@ -1,6 +1,6 @@
 // balancing.npk — Aux-Loss-Free Load Balancing
 
-pub func:balance_load = void() {
+pub func:balance_load = NIL() {
     // DeepSeek's custom load balancing algorithm
-    pass(void);
+    pass(NIL);
 };

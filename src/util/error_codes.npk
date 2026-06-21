@@ -1,14 +1,14 @@
 // error_codes.npk — Global error definitions for nitllm
 
 // System and Memory Errors (100-199)
-pub fixed int32:ERR_OOM_VRAM            = 100i32; // Out of VRAM budget
-pub fixed int32:ERR_INVALID_STRIDE      = 101i32; // Tensor stride boundary failure
-pub fixed int32:ERR_MMAP_FAILED         = 102i32; // sys(MMAP) failure
-pub fixed int32:ERR_CUDA_DMA_FAILED     = 103i32; // cuMemcpyAsync failure
+pub fixed tbb32:ERR_OOM_VRAM            = 100tbb32; // Out of VRAM budget
+pub fixed tbb32:ERR_INVALID_STRIDE      = 101tbb32; // Tensor stride boundary failure
+pub fixed tbb32:ERR_MMAP_FAILED         = 102tbb32; // sys(MMAP) failure
+pub fixed tbb32:ERR_CUDA_DMA_FAILED     = 103tbb32; // cuMemcpyAsync failure
 
 // Mathematical and Tensor Errors (200-299)
-pub fixed int32:ERR_MATH_CORRUPTION     = 200i32; // General tensor math failure
-pub fixed int32:ERR_DIM_MISMATCH        = 201i32; // Matrix dimensions do not align
+pub fixed tbb32:ERR_MATH_CORRUPTION     = 200tbb32; // General tensor math failure
+pub fixed tbb32:ERR_DIM_MISMATCH        = 201tbb32; // Matrix dimensions do not align
 
 // Model & State Errors (300-399)
-pub fixed int32:ERR_INVALID_QUANT       = 300i32; // Incorrect quantization format
+pub fixed tbb32:ERR_INVALID_QUANT       = 300tbb32; // Incorrect quantization format

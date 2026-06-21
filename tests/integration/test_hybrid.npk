@@ -1,6 +1,6 @@
 // test_hybrid.npk — Hybrid Backbone Integration Tests
 
-func:test_hybrid_routing = void() {
+func:test_hybrid_routing = NIL() {
     // Tests the complete 1:7 backbone
-    pass(void);
+    pass(NIL);
 };

@@ -1,6 +1,6 @@
 // test_moe.npk — MoE Stress Testing
 
-func:test_moe_stress = void() {
+func:test_moe_stress = NIL() {
     // Integration tests for MoE expert routing and load balancing
-    pass(void);
+    pass(NIL);
 };

@@ -2,7 +2,7 @@
 
 use "../../src/mla/flash_attention.npk".*;
 
-func:test_mla_e2e = void() {
+func:test_mla_e2e = NIL() {
     // Integration test logic for the entire MLA forward pass
-    pass(void);
+    pass(NIL);
 };

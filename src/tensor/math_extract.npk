@@ -2,7 +2,7 @@
 
 use "matmul.npk".*;
 
-pub func:safe_attention = flt32(wild flt32->:q, wild flt32->:k, int64:dim) {
+pub func:safe_attention = flt32(wild flt32->:q, wild flt32->:k, int64:dim) requires q != NULL, k != NULL, dim > 0i64 {
     Result<flt32>:attention_score = compute_attention_tile(q, k, dim);
     
     // Extraction mandates Unwrapping operators. 

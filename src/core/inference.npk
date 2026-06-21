@@ -12,7 +12,7 @@ pub func:run_generation = int32() {
     // CRITICAL: defer cleanup is placed in the topmost scope of generation.
     // This guarantees the cache remains alive for the entire forward pass loop,
     // preventing the UAF described in Audit 1.1.
-    defer nitpick.free(kv_cache);
+    defer _?dalloc(kv_cache => wild any->);
     
     // ... generation loop logic goes here ...
     

@@ -9,7 +9,8 @@ pub func:allocate_mla_cache = wild flt32->(int64:capacity_elements) {
     
     // Allocation bypasses GC tracking entirely. Capacity is elements, not bytes.
     // (Fixes Type Confusion & Size Bug Audit 1.3)
-    wild flt32->:raw_buffer = nitpick.alloc<flt32>(capacity_elements);
+    wild int8->:bytes = alloc(capacity_elements * 4i64)?!; // 4 bytes per flt32  
+    wild flt32->:raw_buffer = bytes => wild flt32->;
     
     // Explicitly pass the pointer back up the chain
     pass(raw_buffer);

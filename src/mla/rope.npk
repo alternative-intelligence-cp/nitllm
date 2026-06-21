@@ -1,6 +1,6 @@
 // rope.npk — Decoupled Rotary Positional Embeddings
 
-pub func:apply_decoupled_rope = void(wild flt32->:q, wild flt32->:k, int64:pos, int64:dim) {
+pub func:apply_decoupled_rope = NIL(wild complex<flt32>->:q, wild complex<flt32>->:k, int64:pos, int64:dim) {
     // Applies RoPE shifts using precomputed sin/cos values
-    pass(void);
+    pass(NIL);
 };
