@@ -11,4 +11,16 @@ extern "C" {
     
     // cudaError_t cudaStreamSynchronize(cudaStream_t stream)
     func:cuStreamSynchronize = int32(int64:stream_id);
+
+    // cudaError_t cudaStreamCreate(cudaStream_t *pStream)
+    func:cuStreamCreate = int32(uint64*:pStream);
+    
+    // cudaError_t cudaStreamDestroy(cudaStream_t stream)
+    func:cuStreamDestroy = int32(uint64:stream_id);
+    
+    // cudaError_t cudaMalloc(void** devPtr, size_t size)
+    func:cuMemAlloc = int32(void**:devPtr, uint64:size);
+    
+    // cudaError_t cudaFree(void* devPtr)
+    func:cuMemFree = int32(void*:devPtr);
 }

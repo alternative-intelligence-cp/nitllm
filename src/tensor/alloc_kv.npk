@@ -2,16 +2,19 @@
 
 use "../util/error_codes.npk".*;
 use "dense.npk".*;
+use "../ffi/cuda.npk".*;
 
-// Returns raw wild pointer. Implicitly wrapped in Result<wild flt32->>.
-// Ownership transferred to caller; no defer free here. (Fixes UAF Audit 1.1)
 pub func:allocate_mla_cache = wild flt32->(int64:capacity_elements) {
+    tbb64:safe_cap = capacity_elements => tbb64;  
+    tbb64:bytes_tbb = safe_cap * 4tbb64;  
+    if (bytes_tbb == ERR) { fail(ERR_OOM_VRAM); }
+
+    int64:bytes = bytes_tbb => int64;  
     
-    // Allocation bypasses GC tracking entirely. Capacity is elements, not bytes.
-    // (Fixes Type Confusion & Size Bug Audit 1.3)
-    wild int8->:bytes = alloc(capacity_elements * 4i64)?!; // 4 bytes per flt32  
-    wild flt32->:raw_buffer = bytes => wild flt32->;
+    wild any->:dev_ptr = NULL;  
+    // Pass the address of the generic pointer to cuMemAlloc  
+    int32:err = cuMemAlloc(@dev_ptr => any->->, bytes => uint64);  
+    if (err != 0i32) { fail(ERR_OOM_VRAM); }
     
-    // Explicitly pass the pointer back up the chain
-    pass(raw_buffer);
+    pass(dev_ptr => flt32->);
 };

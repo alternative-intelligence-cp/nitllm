@@ -1,9 +1,20 @@
 // generate.npk — Full E2E Inference Generation Loop
 
 use "inference.npk".*;
+use "../mla/kv_cache.npk".*;  
+use "../ffi/cuda.npk".*;
+use "../util/error_codes.npk".*;
 
-pub func:generate = NIL() {
-    // Binds the entire system into the final generation loop
-    _?run_generation();
-    pass(NIL);
+pub func:generate = NIL() {  
+    wild flt32->:kv_cache = init_kv_cache(131072i64, 512i64)?!;
+
+    // Ensure VRAM is freed regardless of success or failure  
+    defer { int32:_d = cuMemFree(kv_cache => any->); };
+
+    Result<int32>:res = run_generation(kv_cache);  
+    if (res.is_error) {  
+        _?stddbg.write(`[FATAL] Generation failed with error code: &{res.err}\n`);  
+        !!!(ERR_MATH_CORRUPTION); // Trigger mandatory failsafe  
+    }  
+    pass(NIL);  
 };

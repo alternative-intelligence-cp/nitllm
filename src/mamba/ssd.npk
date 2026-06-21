@@ -1,8 +1,5 @@
 // ssd.npk — State Space Duality (SSD) Operations
-
-use "../tensor/dense.npk".*;
-
-pub func:compute_ssd = void(wild flt32->:state, wild flt32->:input) {
-    // Mathematical primitives for SSD
-    pass(void);
+pub func:compute_ssd = NIL(wild flt32->:state, wild flt32->:input) {
+    _?stddbg.write("Computing SSD state transition\n");
+    pass(NIL);
 };

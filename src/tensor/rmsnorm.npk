@@ -1,8 +1,5 @@
-// rmsnorm.npk — Layer Normalization (RMSNorm)
-
-use "shape_rules.npk".*;
-
-pub func:rmsnorm_f32 = NIL(wild flt32->:data, limit<valid_seq_len> int64:length) {
-    // Root Mean Square Normalization
+// rmsnorm.npk
+pub func:compute_rmsnorm = NIL() {
+    _?stddbg.write("Computing RMSNorm\n");
     pass(NIL);
 };

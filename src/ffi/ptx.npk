@@ -1,6 +1,5 @@
-// ptx.npk — Direct PTX/CUDA synchronization FFI
-
-pub func:sync_threads_native = NIL() {
-    asm!!!<NIL>("nvptx64", "bar.sync 0;", "");
+// ptx.npk
+pub func:ptx_memory_fence = NIL() {
+    int32:_discard = asm!!!<int32>("nvptx64", "mov.u32 $0, 0;\n\tmembar.gl;", "=r");
     pass(NIL);
 };

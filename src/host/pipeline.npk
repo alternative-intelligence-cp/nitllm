@@ -1,6 +1,35 @@
 // pipeline.npk — Host-Side Pipelining
 
-pub func:host_pipeline = void() {
-    // Staging data pipelining on the Host CPU via Channels
-    pass(void);
+use "dispatch.npk".*;
+
+extern "C" {  
+    func:npk_shim_thread_spawn = int64(void*:func, int64:arg);  
+    func:npk_shim_thread_join = int32(int64:handle);  
+}
+
+pub func:host_pipeline = NIL() {    
+    int64:chan = Channel.create(100i32) ? 0i64;  
+    if (chan == 0i64) { pass(NIL); }
+
+    defer { _?Channel.destroy(chan); }; // Guarantee cleanup on exit
+
+    (int64)(int64):worker = int64(int64:arg) {    
+        int64:ch = arg;    
+        _?host_dispatch(ch);  
+        pass(0i64);    
+    };
+
+    int64:tid = npk_shim_thread_spawn(worker => any->, chan);    
+
+    int64:count = 0i64;  
+    while (count < 10i64) {  
+        _?Channel.send(chan, count);  
+        count = count + 1i64;  
+    }
+
+    _?Channel.close(chan); // Signal consumer to shut down  
+
+    // Join the thread to prevent UAF on the channel before destruction  
+    int32:_d = npk_shim_thread_join(tid);  
+    pass(NIL);    
 };

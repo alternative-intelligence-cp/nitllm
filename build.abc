@@ -1,7 +1,7 @@
 // build.abc — NITLLM Build Manifest
 
 project "nitllm"
-version "0.0.0"
+version "0.20.0"
 
 // Enforce strictest memory and syntax checking
 compiler_flags "-O3 --verify-contracts --smt-opt"

@@ -1,29 +1,33 @@
 // dma.npk — DMA Streaming for Weights
 
+use "sys.nitpick".*;
 use "../util/error_codes.npk".*;
 use "../ffi/cuda.npk".*;
 use "../ffi/mmap.npk".*;
 use "quant_types.npk".*;
 
-pub func:stream_weights_to_vram = TensorINT4(int64:fd, int64:size_bytes, wild int8->:vram_dest) {
+pub func:stream_weights_to_vram = TensorINT4(int64:fd, int64:size_bytes, wild int8->:vram_dest, uint64:stream_id) requires size_bytes > 0i64, size_bytes % 64i64 == 0i64 {
     // 1. Map to host RAM
-    wild int8->:host_ptr = map_weights(fd, size_bytes);
+    wild int8->:host_ptr = map_weights(fd, size_bytes, 0i64)?!;
     
     // 2. Pin the host memory using '#' to prevent paging during DMA
-    int64:mlock_err = sys(MLOCK, host_ptr => int64, size_bytes) ? -1i64;  
-    if (mlock_err != 0i64) { fail(ERR_CUDA_DMA_FAILED => tbb32); }  
-    defer drop sys(MUNLOCK, host_ptr => int64, size_bytes);
+    int64:mlock_err = sys!!(MLOCK, host_ptr => any->, size_bytes) ? -1i64;  
+    if (mlock_err != 0i64) { fail(ERR_CUDA_DMA_FAILED); }  
+    defer {  
+        _?sys!!(MUNLOCK, host_ptr => any->, size_bytes);  
+        _?sys(MUNMAP, host_ptr => any->, size_bytes);   
+    };
     
     // 3. Asynchronous DMA transfer to VRAM destination
-    int32:err = cuMemcpyAsync(vram_dest => void*, host_ptr => void*, size_bytes => uint64, CUDA_MEMCPY_H2D, 0u64);
+    int32:err = cuMemcpyAsync(vram_dest => any->, host_ptr => any->, size_bytes => uint64, CUDA_MEMCPY_H2D, stream_id);
     if (err != 0i32) {
-        fail(ERR_CUDA_DMA_FAILED => tbb8);
+        fail(ERR_CUDA_DMA_FAILED);
     }
     
     // 4. Synchronize the stream to ensure transfer completion
-    int32:sync_err = cuStreamSynchronize(0i64);
+    int32:sync_err = cuStreamSynchronize(stream_id => int64);
     if (sync_err != 0i32) {
-        fail(ERR_CUDA_DMA_FAILED => tbb8);
+        fail(ERR_CUDA_DMA_FAILED);
     }
     
     // Calculate blocks (each block is 64 bytes)

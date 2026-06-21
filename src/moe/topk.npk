@@ -1,6 +1,6 @@
 // topk.npk — Top-K Expert Selection
 
-pub func:select_top_k = NIL() {
-    // Top-K expert selection logic
-    pass(NIL);
+pub func:select_top_k = int64(int64:token, int64:max_experts) requires max_experts > 0i64 {
+    int64:selected = token % max_experts;
+    pass(selected);
 };

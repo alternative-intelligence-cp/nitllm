@@ -1,6 +1,5 @@
-// lifecycle.npk — Global Memory Lifecycle
-
-pub func:audit_lifecycle = NIL() {
-    // Verifies that all defer calls are perfectly scoped
+// lifecycle.npk
+pub func:init_lifecycle = NIL() {
+    _?stddbg.write("Init lifecycle\n");
     pass(NIL);
 };

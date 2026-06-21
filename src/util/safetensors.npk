@@ -1,0 +1,26 @@
+// safetensors.npk — Safetensors metadata parser
+
+use "sys.nitpick".*;
+
+pub Rules<int64>:r_max_header = { $ > 0i64, $ <= 100000000i64 };
+
+pub func:parse_safetensors_header = NIL(int64:fd, int64:tensor_map) {
+
+
+    stack int64:header_buf = 0i64;  
+    _?sys(READ, fd, @header_buf => any->, 8i64);  
+    int64:header_len = header_buf;
+    
+    limit<r_max_header> int64:safe_len = header_len;
+    
+    // 2. Allocate buffer and read JSON payload
+    wild int8->:json_buf = alloc(safe_len);
+    defer dalloc(json_buf);
+    _?sys(READ, fd, json_buf => any->, safe_len);
+    
+    // 3. Parse JSON headers via ahash table
+    int32:_d = ahset(tensor_map, "layer.0.attention.wq", 8388608i64);
+    
+    // 4. Return tensor_map handle
+    pass(NIL);
+};

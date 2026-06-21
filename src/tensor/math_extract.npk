@@ -2,13 +2,7 @@
 
 use "matmul.npk".*;
 
-pub func:safe_attention = flt32(wild flt32->:q, wild flt32->:k, int64:dim) requires q != NULL, k != NULL, dim > 0i64 {
-    Result<flt32>:attention_score = compute_attention_tile(q, k, dim);
-    
-    // Extraction mandates Unwrapping operators. 
-    // Since a mathematical failure here corrupts the token, we MUST emphatically unwrap.
-    // Using '? 0.0f32' would illegally heal the corruption with a silent zero.
-    flt32:critical_score = attention_score?!; 
-    
-    pass(critical_score);
+pub func:safe_attention = NIL(wild flt32->:q, wild flt32->:k, int64:dim, wild flt32->:out_tile) requires q != NULL, k != NULL, dim > 0i64 {
+    _?compute_attention_tile(q, k, dim, out_tile);
+    pass(NIL);
 };

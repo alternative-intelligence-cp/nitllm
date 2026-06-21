@@ -1,6 +1,5 @@
-// heads.npk — Independent Output Heads
-
-pub func:mtp_heads = NIL() {
-    // Separate output heads for predicting multiple future tokens
+// heads.npk — Prediction Heads
+pub func:mtp_head_forward = NIL() {
+    _?stddbg.write("MTP head forward pass\n");
     pass(NIL);
 };

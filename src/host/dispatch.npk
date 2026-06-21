@@ -1,6 +1,22 @@
 // dispatch.npk — Host-Side atomic<T> Synchronization
 
-pub func:host_dispatch = void() {
-    // atomic<T> synchronization for CPU orchestrator threads
-    pass(void);
+use "../tensor/dma.npk".*;  
+use "../ffi/cuda.npk".*;
+
+pub func:host_dispatch = NIL(int64:chan) {  
+    stack uint64:stream_id = 0u64;  
+    int32:_d_strm = cuStreamCreate(@stream_id);  
+    defer { int32:_d_del = cuStreamDestroy(stream_id); };
+    while (true) {  
+        int64:msg = Channel.recv(chan) ? -1i64;  
+        if (msg == -1i64) { break; }
+
+        wild any->:vram_ptr = NULL;  
+        int32:err = cuMemAlloc(@vram_ptr => any->->, 1024u64);  
+        if (err == 0i32) {  
+            defer { int32:_d = cuMemFree(vram_ptr => any->); };  
+            _?stream_weights_to_vram(msg, 1024i64, vram_ptr => int8->, stream_id);  
+        }  
+    }  
+    pass(NIL);  
 };

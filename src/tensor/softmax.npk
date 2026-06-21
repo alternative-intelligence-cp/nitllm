@@ -1,8 +1,5 @@
-// softmax.npk — Fused Softmax Implementation
-
-use "shape_rules.npk".*;
-
-pub func:fused_softmax_f32 = NIL(wild flt32->:data, limit<valid_seq_len> int64:length) {
-    // Fused softmax avoiding garbage collection during exponentiation sum.
+// softmax.npk
+pub func:compute_softmax = NIL() {
+    _?stddbg.write("Computing Softmax\n");
     pass(NIL);
 };

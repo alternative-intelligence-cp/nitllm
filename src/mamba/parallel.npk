@@ -1,6 +1,9 @@
 // parallel.npk — GPU Block-Parallel Execution Logic
-
-pub func:execute_parallel_blocks = void() {
-    // Mamba-2 block parallel execution
-    pass(void);
+pub func:mamba_parallel_exec = NIL(int64:blocks) {
+    int64:i = 0i64;
+    while (i < blocks) {
+        _?stddbg.write(`Executing block &{i}\n`);
+        i = i + 1i64;
+    }
+    pass(NIL);
 };

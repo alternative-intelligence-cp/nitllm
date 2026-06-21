@@ -1,10 +1,6 @@
 // blocks.npk — Mamba-2 Block Structs
-
-use "../tensor/alloc.npk".*;
-use "../tensor/rules.npk".*;
-
-// Notice the explicit NIL override replacing generic alloc returns
-pub func:allocate_mamba_block_safe = NIL(limit<valid_stride> int32:stride) {
-    // Implements Mamba-2 block structs safely using implicit NIL(...) returns
-    pass(NIL);
+pub struct:MambaBlock = { int64:dim; };
+pub func:init_block = MambaBlock(int64:d) {
+    MambaBlock:b = { dim: d };
+    pass(b);
 };

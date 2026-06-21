@@ -1,6 +1,5 @@
-// shared.npk — Shared Expert Pathways
-
+// shared.npk
 pub func:shared_expert_forward = NIL() {
-    // Shared expert applied to all tokens
+    _?stddbg.write("Shared expert forward\n");
     pass(NIL);
 };

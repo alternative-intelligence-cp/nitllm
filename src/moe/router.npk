@@ -1,6 +1,5 @@
-// router.npk — MoE Router Network
-
-pub func:route_tokens = NIL() {
-    // Dynamic router for selecting experts
+// router.npk
+pub func:router_forward = NIL() {
+    _?stddbg.write("Router forward\n");
     pass(NIL);
 };

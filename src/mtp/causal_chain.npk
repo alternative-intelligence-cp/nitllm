@@ -1,6 +1,5 @@
-// causal_chain.npk — MTP Causal Chain
-
-pub func:mtp_causal_chain = NIL() {
-    // Core causal chain logic for MTP
+// causal_chain.npk — MTP Causal Chains
+pub func:process_causal_chain = NIL() {
+    _?stddbg.write("Processing causal chain\n");
     pass(NIL);
 };

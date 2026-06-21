@@ -1,8 +1,5 @@
 // s4_kernels.npk — Structured State Space Sequence Kernels
-
-use "../ffi/ptx.npk".*;
-
 pub func:s4_forward = NIL() {
-    // S4 specific CUDA kernels for fast sequence traversal
+    _?stddbg.write("Executing S4 forward kernel\n");
     pass(NIL);
 };

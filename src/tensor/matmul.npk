@@ -3,9 +3,10 @@
 use "../util/error_codes.npk".*;
 use "dense.npk".*;
 
-// Matrix multiplication inherently returns a Result type.
-// We use hardware-accelerated flt32 for Tensor Core utilization.
-pub func:compute_attention_tile = flt32(wild flt32->:q_tile, wild flt32->:k_tile, int64:dim) {
-    // Simulated hardware GEMM dispatch
-    pass(0.0f32); // implementation deferred to specialized PTX
+pub func:compute_attention_tile = NIL(wild flt32->:q_tile, wild flt32->:k_tile, int64:dim, wild flt32->:out_tile) requires dim > 0i64 {
+    int32:_discard = asm!!!<int32>("nvptx64",     
+        "mov.u32 $0, 0;\n\t"  
+        "mma.sync.aligned.m16n8k16.row.col.f32.f16.f16.f32 $1, $2, $3, $4;",     
+        "=r,l,l,l,r", out_tile => any->, q_tile => any->, k_tile => any->, dim => int32);  
+    pass(NIL);
 };

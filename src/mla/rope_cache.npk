@@ -1,6 +1,5 @@
-// rope_cache.npk — RoPE Pre-computation and Caching
-
-pub func:precompute_rope = wild flt32->(int64:max_seq_len, int64:dim) {
-    // Precomputes the sin/cos tables to eliminate runtime math
+// rope_cache.npk — RoPE Cache
+pub func:init_rope_cache = NIL() {
+    _?stddbg.write("Init RoPE cache\n");
     pass(NIL);
 };

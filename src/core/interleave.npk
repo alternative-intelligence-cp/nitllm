@@ -1,11 +1,13 @@
-// interleave.npk — The 1:7 Routing & Interleaving Implementation
-
-pub func:route_layer = NIL(int64:layer_id) {
-    // Implements 1 attention layer for every 7 Mamba layers
-    if (layer_id % 8i64 == 0i64) {
-        // Route to MLA
-    } else {
-        // Route to Mamba
-    }
-    pass(NIL);
+// interleave.npk
+pub func:route_layer = NIL(int64:layer_id) {  
+    // Implements 1 attention layer for every 7 Mamba layers.  
+    // Bitwise AND is used instead of modulo for maximum dispatch throughput.  
+    if ((layer_id & 7i64) == 0i64) {  
+        // Route to MLA (Multi-Head Latent Attention)  
+        _?stddbg.write(`Routing layer &{layer_id} to MLA\n`);  
+    } else {  
+        // Route to Mamba (State Space Model)  
+        _?stddbg.write(`Routing layer &{layer_id} to Mamba-2\n`);  
+    }  
+    pass(NIL);  
 };

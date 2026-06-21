@@ -6,12 +6,12 @@ use "sys.nitpick".*;
 
 // Maps file descriptors into Host RAM.
 // Syscalls return int64; explicit cast (=>) is required to map to a pointer.
-pub func:map_weights = wild int8->(int64:fd, int64:size) {
+pub func:map_weights = wild int8->(int64:fd, int64:size, int64:offset) {
     // PROT_READ = 1, MAP_SHARED = 1.
     // Emphatic unwrap (?!) requires no fallback.
-    int64:mmap_addr = sys(MMAP, 0i64, size, 1i64, 2i64, fd, 0i64)?!;
+    int64:mmap_addr = sys(MMAP, 0i64, size, 1i64, 1i64, fd, offset)?!;
     
-    wild int8->:weight_ptr = mmap_addr => wild int8->;
+    wild int8->:weight_ptr = mmap_addr => int8->;
     
     // Note: Pinning with '#' happens at the caller side before DMA.
     pass(weight_ptr);

@@ -1,8 +1,5 @@
-// alloc_weights.npk — INT4 Static Weight Allocation
-
-use "../tensor/alloc.npk".*;
-
-pub func:allocate_moe_weights = NIL() {
-    // Allocates the full VRAM memory footprint for the 32B INT4 weights
+// alloc_weights.npk
+pub func:alloc_expert_weights = NIL() {
+    _?stddbg.write("Allocating expert weights\n");
     pass(NIL);
 };

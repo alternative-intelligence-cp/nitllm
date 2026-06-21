@@ -1,6 +1,17 @@
 // balancing.npk — Aux-Loss-Free Load Balancing
 
-pub func:balance_load = NIL() {
-    // DeepSeek's custom load balancing algorithm
-    pass(NIL);
+use "topk.npk".*;
+
+pub Rules<int64>:r_max_tokens = { $ <= 1000i64 };  
+atomic<int64>:g_expert_load = atomic_new(0i64);
+
+pub func:balance_load = NIL(int64:token) {  
+    int64:current = g_expert_load.fetch_add_relaxed(1i64);  
+    limit<r_max_tokens> int64:max_tokens = 1000i64;  
+    
+    if (current > max_tokens) {
+        int64:fallback = select_top_k(token, 4i64) ? 0i64;
+        _?stddbg.write(`Routing excess token to fallback expert &{fallback}\n`);
+    }
+    pass(NIL);  
 };

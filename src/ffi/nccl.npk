@@ -1,0 +1,9 @@
+// nccl.npk — FFI bindings for NVIDIA NCCL
+
+extern "C" {
+    // ncclResult_t ncclCommInitRank(ncclComm_t* comm, int nranks, ncclUniqueId commId, int rank)
+    func:ncclCommInitRank = int32(void**:comm, int32:nranks, void*:commId, int32:rank);
+    
+    // ncclResult_t ncclAllReduce(const void* sendbuff, void* recvbuff, size_t count, ncclDataType_t datatype, ncclRedOp_t op, ncclComm_t comm, cudaStream_t stream)
+    func:ncclAllReduce = int32(void*:sendbuff, void*:recvbuff, uint64:count, int32:datatype, int32:op, void*:comm, uint64:stream);
+}

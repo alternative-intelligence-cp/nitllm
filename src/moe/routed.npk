@@ -1,6 +1,5 @@
-// routed.npk — Routed Expert Pathways
-
-pub func:routed_expert_forward = NIL() {
-    // Specific pathways for dynamically routed experts
+// routed.npk
+pub func:route_expert = NIL() {
+    _?stddbg.write("Routing expert\n");
     pass(NIL);
 };
