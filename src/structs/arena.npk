@@ -84,10 +84,8 @@ pub func:tcb_arena_get = TCB->(TCBArena->:arena, IdxHandle<TCB>:h) {
     if (gen_val != h.generation) { pass(NULL); }
 
     // TCB is at offset 0
-    TCB->: item_ptr = NULL; 
     int64: p = base + (h.index * 104i64); 
-    // Safely discard the intrinsic return value  
-    wild int8->:_d_mcpy = mcpy(@item_ptr => any->, @p => any->, 8i64);
+    TCB->: item_ptr = p => TCB->;
     pass(item_ptr);
 };
 

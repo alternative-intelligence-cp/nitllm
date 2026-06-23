@@ -10,4 +10,5 @@ func:prove_compression_ratio = NIL() {
     // Ratio: 1 byte per weight. 32 Billion weights = 32GB without routing.
     // But we prove here that a block's structure doesn't exceed 128 bytes.
     assert_static(sizeof(PackedInt4Block) == 128i64); 
+    pass(NIL);
 };
