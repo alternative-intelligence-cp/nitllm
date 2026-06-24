@@ -1,5 +1,5 @@
 // causal_chain.npk — MTP Causal Chains
 pub func:process_causal_chain = NIL() {
-    _?stddbg.write("Processing causal chain\n");
+    print("Processing causal chain\n");
     pass(NIL);
 };

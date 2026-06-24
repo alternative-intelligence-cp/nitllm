@@ -11,7 +11,7 @@ pub func:balance_load = NIL(int64:token) {
     
     if (current > max_tokens) {
         int64:fallback = select_top_k(token, 4i64) ? 0i64;
-        _?stddbg.write(`Routing excess token to fallback expert &{fallback}\n`);
+        print(`Routing excess token to fallback expert &{fallback}\n`);
     }
     pass(NIL);  
 };

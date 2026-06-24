@@ -1,30 +1,17 @@
 // kv_cache.npk
 use "../util/error_codes.npk".*;
 use "../tensor/alloc_kv.npk".*;
-use "../structs/arena.npk".*;
 use "../tensor/shape_rules.npk".*;
 
-pub struct:KVBlock = {    
-    int64:token_capacity;    
-    wild flt32->:data;    
-};
-
-pub struct:KVPool = {    
-    arena<KVBlock>:allocator;    
-};
-
-pub struct:KVBlockTable = {    
-    wild KVBlock->:blocks;    
-    int64:num_blocks;    
-};
-
-pub func:init_kv_cache = wild flt32->(limit<valid_seq_len> int64:max_tokens, limit<valid_hidden_dim> int64:kv_dim) {  
+pub func:init_kv_cache = int64(limit<valid_seq_len> int64:max_tokens, limit<valid_hidden_dim> int64:kv_dim) {  
     tbb64:tokens_tbb = max_tokens => tbb64;  
     tbb64:dim_tbb = kv_dim => tbb64;  
     tbb64:total = tokens_tbb * dim_tbb;
 
     if (total == ERR) { fail(ERR_DIM_MISMATCH); }
 
-    wild flt32->:cache = allocate_mla_cache(total => int64)?!;  
+    Result<int64>:cache_res = allocate_mla_cache(total => int64);
+    if (cache_res.is_error) { fail(cache_res.error); }
+    int64:cache = raw(cache_res);
     pass(cache);  
 };

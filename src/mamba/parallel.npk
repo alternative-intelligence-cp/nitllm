@@ -2,7 +2,7 @@
 pub func:mamba_parallel_exec = NIL(int64:blocks) {
     int64:i = 0i64;
     while (i < blocks) {
-        _?stddbg.write(`Executing block &{i}\n`);
+        print(`Executing block &{i}\n`);
         i = i + 1i64;
     }
     pass(NIL);

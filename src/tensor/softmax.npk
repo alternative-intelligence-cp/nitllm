@@ -1,5 +1,5 @@
 // softmax.npk
 pub func:compute_softmax = NIL() {
-    _?stddbg.write("Computing Softmax\n");
+    print("Computing Softmax\n");
     pass(NIL);
 };

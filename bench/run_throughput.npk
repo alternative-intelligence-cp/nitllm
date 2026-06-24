@@ -1,7 +1,7 @@
 // run_throughput.npk — Throughput Benchmarking
 
 pub func:benchmark = NIL() {
-    _?stddbg.write("Starting NitLLM throughput benchmark (Tokens/sec)...\n");
+    print("Starting NitLLM throughput benchmark (Tokens/sec)...\n");
     // Establishes the performance baselines (Tokens/sec)
     pass(NIL);
 };

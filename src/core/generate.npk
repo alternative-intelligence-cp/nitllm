@@ -6,14 +6,16 @@ use "../ffi/cuda.npk".*;
 use "../util/error_codes.npk".*;
 
 pub func:generate = NIL() {  
-    wild flt32->:kv_cache = init_kv_cache(131072i64, 512i64)?!;
+    Result<int64>:kv_res = init_kv_cache(131072i64, 512i64);
+    if (kv_res.is_error) { !!! 1i32; }
+    int64:kv_cache = raw(kv_res);
 
     // Ensure VRAM is freed regardless of success or failure  
-    defer { int32:_d = cuMemFree(kv_cache => any->); };
+    defer { cuMemFree(kv_cache); }
 
     Result<int32>:res = run_generation(kv_cache);  
     if (res.is_error) {  
-        _?stddbg.write(`[FATAL] Generation failed with error code: &{res.err}\n`);  
+        print(`[FATAL] Generation failed with error code: &{res.error}\n`);  
         !!!(ERR_MATH_CORRUPTION); // Trigger mandatory failsafe  
     }  
     pass(NIL);  

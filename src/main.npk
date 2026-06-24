@@ -1,20 +1,14 @@
 // main.npk — nitllm entry point
 
-use "util/error_codes.npk".*;
+use "util/failsafe_handler.npk".*;
+
 use "core/generate.npk".*;
 use "../bench/run_throughput.npk".*;
 
-pub func:failsafe = int32(tbb32:err) {    
-    _?stderr.write(`FATAL NITLLM ERROR: &{err}\n`);    
-    int32:code = err => int32;  
-    if (code <= 0i32) { code = 1i32; }  
-    exit(code);    
-};  
-
 pub func:main = int32() {
-    _?stddbg.write("Initializing NITLLM Engine...\n");  
+    print("Initializing NITLLM Engine...\n");  
     _?generate();  
     _?benchmark();
-    _?stddbg.write("Inference generation completed successfully.\n");  
-    pass(0i32);  
+    print("Inference generation completed successfully.\n");  
+    exit(0i32);  
 };

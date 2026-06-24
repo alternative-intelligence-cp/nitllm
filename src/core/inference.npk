@@ -4,7 +4,7 @@ use "../util/error_codes.npk".*;
 use "../tensor/alloc_kv.npk".*;
 use "../mla/kv_cache.npk".*;
 
-pub func:run_generation = int32(wild flt32->:kv_cache) {
+pub func:run_generation = int32(int64:kv_cache) {
     // ... generation loop logic goes here ...
     pass(0i32);
 };

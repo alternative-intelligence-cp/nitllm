@@ -24,7 +24,7 @@ pub func:vector_add = NIL(wild flt32->:a, wild flt32->:b, wild flt32->:out, int6
 };
 
 pub func:vector_mul = NIL(wild flt32->:a, wild flt32->:b, wild flt32->:out, int64:len) {
-    _?stddbg.write("Vector mul executed\n");
+    print("Vector mul executed\n");
     pass(NIL);
 };
 

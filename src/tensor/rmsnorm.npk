@@ -1,5 +1,5 @@
 // rmsnorm.npk
 pub func:compute_rmsnorm = NIL() {
-    _?stddbg.write("Computing RMSNorm\n");
+    print("Computing RMSNorm\n");
     pass(NIL);
 };

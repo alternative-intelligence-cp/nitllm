@@ -1,5 +1,5 @@
 // router.npk
 pub func:router_forward = NIL() {
-    _?stddbg.write("Router forward\n");
+    print("Router forward\n");
     pass(NIL);
 };

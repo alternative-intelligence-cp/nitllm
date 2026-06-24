@@ -1,5 +1,5 @@
 // rope.npk — Rotary Position Embeddings
 pub func:apply_rope = NIL(wild flt32->:vec, int64:pos) {
-    _?stddbg.write("Applying RoPE\n");
+    print("Applying RoPE\n");
     pass(NIL);
 };

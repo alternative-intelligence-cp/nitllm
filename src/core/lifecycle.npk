@@ -1,5 +1,5 @@
 // lifecycle.npk
 pub func:init_lifecycle = NIL() {
-    _?stddbg.write("Init lifecycle\n");
+    print("Init lifecycle\n");
     pass(NIL);
 };

@@ -1,5 +1,5 @@
 // s4_kernels.npk — Structured State Space Sequence Kernels
 pub func:s4_forward = NIL() {
-    _?stddbg.write("Executing S4 forward kernel\n");
+    print("Executing S4 forward kernel\n");
     pass(NIL);
 };

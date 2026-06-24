@@ -1,5 +1,5 @@
 // shared.npk
 pub func:shared_expert_forward = NIL() {
-    _?stddbg.write("Shared expert forward\n");
+    print("Shared expert forward\n");
     pass(NIL);
 };

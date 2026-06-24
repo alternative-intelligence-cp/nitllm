@@ -1,5 +1,5 @@
 // heads.npk — Prediction Heads
 pub func:mtp_head_forward = NIL() {
-    _?stddbg.write("MTP head forward pass\n");
+    print("MTP head forward pass\n");
     pass(NIL);
 };

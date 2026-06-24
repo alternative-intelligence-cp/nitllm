@@ -4,12 +4,12 @@ project "nitllm"
 version "0.20.0"
 
 // Enforce strictest memory and syntax checking
-compiler_flags "-O3 --verify-contracts --smt-opt"
+compiler_flags "-picky -O3 --verify-contracts --smt-opt"
 
 // Link standard dependencies
 dependency "nitpick-libc" version "1.2.x"
 
 // FFI links for CUDA/PTX integrations
-ffi_link "cuda" "cudart"
+ffi_link "cuda" "cudart" "cuda_shim"
 
 export_bin "nitllm" from "src/main.npk"

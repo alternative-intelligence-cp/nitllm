@@ -1,5 +1,5 @@
 // alloc_weights.npk
 pub func:alloc_expert_weights = NIL() {
-    _?stddbg.write("Allocating expert weights\n");
+    print("Allocating expert weights\n");
     pass(NIL);
 };

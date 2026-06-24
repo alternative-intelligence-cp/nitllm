@@ -4,10 +4,10 @@ pub func:route_layer = NIL(int64:layer_id) {
     // Bitwise AND is used instead of modulo for maximum dispatch throughput.  
     if ((layer_id & 7i64) == 0i64) {  
         // Route to MLA (Multi-Head Latent Attention)  
-        _?stddbg.write(`Routing layer &{layer_id} to MLA\n`);  
+        print(`Routing layer &{layer_id} to MLA\n`);  
     } else {  
         // Route to Mamba (State Space Model)  
-        _?stddbg.write(`Routing layer &{layer_id} to Mamba-2\n`);  
+        print(`Routing layer &{layer_id} to Mamba-2\n`);  
     }  
     pass(NIL);  
 };

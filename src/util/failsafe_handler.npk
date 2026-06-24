@@ -1,0 +1,8 @@
+// util/failsafe_handler.npk
+
+pub func:failsafe = int32(tbb32:err) {    
+    print(`FATAL NITLLM ERROR: &{err}\n`);    
+    int32:code = err => int32;  
+    if (code <= 0i32) { code = 1i32; }  
+    exit(code);    
+};

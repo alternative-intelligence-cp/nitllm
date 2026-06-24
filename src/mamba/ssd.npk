@@ -1,5 +1,5 @@
 // ssd.npk — State Space Duality (SSD) Operations
 pub func:compute_ssd = NIL(wild flt32->:state, wild flt32->:input) {
-    _?stddbg.write("Computing SSD state transition\n");
+    print("Computing SSD state transition\n");
     pass(NIL);
 };

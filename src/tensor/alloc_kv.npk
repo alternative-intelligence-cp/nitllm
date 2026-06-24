@@ -4,17 +4,15 @@ use "../util/error_codes.npk".*;
 use "dense.npk".*;
 use "../ffi/cuda.npk".*;
 
-pub func:allocate_mla_cache = wild flt32->(int64:capacity_elements) {
+pub func:allocate_mla_cache = int64(int64:capacity_elements) {
     tbb64:safe_cap = capacity_elements => tbb64;  
     tbb64:bytes_tbb = safe_cap * 4tbb64;  
     if (bytes_tbb == ERR) { fail(ERR_OOM_VRAM); }
 
     int64:bytes = bytes_tbb => int64;  
     
-    wild any->:dev_ptr = NULL;  
-    // Pass the address of the generic pointer to cuMemAlloc  
-    int32:err = cuMemAlloc(@dev_ptr => any->->, bytes => uint64);  
-    if (err != 0i32) { fail(ERR_OOM_VRAM); }
+    int64:dev_ptr = shim_cuMemAlloc(@cast_unchecked<uint64>(bytes));
+    if (dev_ptr == 0i64) { fail(ERR_OOM_VRAM); }
     
-    pass(dev_ptr => flt32->);
+    pass(dev_ptr);
 };

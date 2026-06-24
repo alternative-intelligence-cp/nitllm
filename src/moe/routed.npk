@@ -1,5 +1,5 @@
 // routed.npk
 pub func:route_expert = NIL() {
-    _?stddbg.write("Routing expert\n");
+    print("Routing expert\n");
     pass(NIL);
 };
